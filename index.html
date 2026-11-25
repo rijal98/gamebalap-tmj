@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Game Balapan · Teknik Multimedia dan Jaringan · PNUP</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+
+    <!-- HUD saat balapan -->
+    <div id="hud" class="hidden">
+      <div class="hud-tl">
+        <div class="lbl">LAP</div>
+        <div class="big"><span id="lap">1</span><small>/<span id="laps">3</span></small></div>
+        <div class="time" id="lapTime">00:00.000</div>
+        <div class="small">TERBAIK <b id="best">--:--.---</b></div>
+        <div class="small">TERAKHIR <b id="last">--:--.---</b></div>
+      </div>
+      <canvas id="minimap" width="200" height="200"></canvas>
+      <div class="hud-bc">
+        <div class="rpm"><i id="rpmBar"></i></div>
+        <div class="speedrow"><span id="speed">0</span><small>km/j</small><span id="gear" class="gear">1</span></div>
+      </div>
+      <div id="center" class="center hidden"></div>
+      <div id="wrong" class="wrong hidden">ARAH SALAH</div>
+    </div>
+
+    <!-- Menu -->
+    <section id="menu" class="overlay menu">
+      <p class="kicker">Politeknik Negeri Ujung Pandang</p>
+      <h1>GAME<span>BALAPAN</span></h1>
+      <p class="prodi">Teknik Multimedia dan Jaringan</p>
+      <div class="rule"></div>
+      <p class="tag">Wetline GT: balap GT3 di sirkuit basah. Cahaya berubah dari sore ke malam. 3 lap.</p>
+      <button id="startBtn" type="button">MULAI BALAPAN</button>
+      <ul class="controls">
+        <li><b>W / &uarr;</b> gas &nbsp; <b>S / &darr;</b> rem &amp; mundur &nbsp; <b>A D / &larr; &rarr;</b> setir</li>
+        <li><b>Spasi</b> rem tangan (drift) &nbsp; <b>R</b> kembali ke jalur &nbsp; <b>C</b> kamera</li>
+        <li><b>M</b> suara &nbsp; <b>P</b> jeda &nbsp; <b>Q</b> kualitas grafis</li>
+        <li class="touch-only">Di ponsel: gunakan tombol di layar</li>
+      </ul>
+    </section>
+
+    <!-- Hasil -->
+    <section id="finish" class="overlay hidden">
+      <h2>BALAPAN SELESAI</h2>
+      <div class="result"><span>Total</span><b id="rTotal">--</b></div>
+      <div class="result"><span>Lap tercepat</span><b id="rBest">--</b></div>
+      <ol id="rLaps" class="laps"></ol>
+      <button id="againBtn" type="button">BALAP LAGI</button>
+    </section>
+
+    <section id="pause" class="overlay hidden"><h2>DIJEDA</h2><p class="tag">Tekan P untuk melanjutkan</p></section>
+
+    <!-- Tombol sentuh (hanya tampil di layar sentuh) -->
+    <div id="touch" class="touch">
+      <div class="cluster left">
+        <button data-key="ArrowLeft" aria-label="Kiri">&#9664;</button>
+        <button data-key="ArrowRight" aria-label="Kanan">&#9654;</button>
+      </div>
+      <div class="cluster right">
+        <button data-key="Space" class="wide" aria-label="Drift">DRIFT</button>
+        <button data-key="ArrowDown" aria-label="Rem">REM</button>
+        <button data-key="ArrowUp" class="gas" aria-label="Gas">GAS</button>
+      </div>
+    </div>
+
+    <div id="fatal" class="overlay hidden"><h2>WebGL tidak tersedia</h2><p class="tag">Gunakan peramban terbaru (Chrome/Edge/Firefox) dan aktifkan akselerasi perangkat keras.</p></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

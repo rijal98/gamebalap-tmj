@@ -1,0 +1,63 @@
+:root { --amber: #ffb020; --blue: #3aa0ff; --bg: #07090d; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: #eef3f8; font-family: 'Segoe UI', system-ui, sans-serif; user-select: none; -webkit-user-select: none; }
+canvas#game { display: block; width: 100%; height: 100%; touch-action: none; }
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud { position: fixed; inset: 0; pointer-events: none; }
+.lbl, .small { font-size: 11px; letter-spacing: .16em; opacity: .75; }
+.small b { font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+.hud-tl { position: absolute; top: 14px; left: 18px; text-shadow: 0 1px 6px #000a; }
+.hud-tl .big { font-size: 44px; font-weight: 800; font-style: italic; line-height: 1; }
+.hud-tl .big small { font-size: 20px; opacity: .7; }
+.hud-tl .time { margin: 4px 0 8px; font-size: 22px; font-weight: 700; color: var(--amber); font-variant-numeric: tabular-nums; }
+#minimap { position: absolute; top: 12px; right: 14px; width: 150px; height: 150px; background: #0008; border: 1px solid #fff2; border-radius: 10px; }
+.hud-bc { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); text-align: center; text-shadow: 0 2px 8px #000a; }
+.speedrow { display: flex; align-items: baseline; gap: 8px; justify-content: center; }
+#speed { font-size: 64px; font-weight: 800; font-style: italic; font-variant-numeric: tabular-nums; min-width: 2.2ch; text-align: right; }
+.speedrow small { font-size: 14px; opacity: .7; letter-spacing: .1em; }
+.gear { margin-left: 10px; padding: 2px 12px; border: 2px solid var(--amber); color: var(--amber); font-size: 26px; font-weight: 800; border-radius: 6px; }
+.rpm { width: 280px; height: 6px; margin: 0 auto 4px; background: #fff2; border-radius: 4px; overflow: hidden; }
+.rpm i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--amber), #ff3b30); }
+.center { position: absolute; top: 28%; left: 50%; transform: translateX(-50%); font-size: clamp(44px, 12vw, 120px); font-weight: 900; font-style: italic; color: #fff; text-shadow: 0 0 30px #000c; white-space: nowrap; }
+.center.small-msg { font-size: clamp(22px, 5vw, 40px); color: var(--amber); }
+.wrong { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); padding: 6px 20px; background: #d4202a; font-weight: 800; letter-spacing: .12em; border-radius: 6px; animation: blink .5s steps(2, start) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+
+/* ---------- overlay ---------- */
+.overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; text-align: center; background: rgba(5, 7, 11, .72); backdrop-filter: blur(4px); }
+.overlay h1 { font-size: clamp(42px, 9vw, 92px); font-weight: 900; font-style: italic; letter-spacing: .04em; }
+.overlay h1 span { color: var(--amber); margin-left: .15em; }
+.overlay h2 { font-size: clamp(30px, 6vw, 52px); font-style: italic; color: var(--amber); }
+.tag { opacity: .85; max-width: 560px; }
+button { font: 800 17px/1 inherit; letter-spacing: .14em; padding: 14px 38px; color: #111; background: var(--amber); border: 0; border-radius: 6px; cursor: pointer; box-shadow: 0 0 22px #ffb02066; }
+button:hover { filter: brightness(1.1); }
+.controls { list-style: none; margin-top: 8px; font-size: 14px; line-height: 2; opacity: .85; }
+.controls b { color: var(--amber); }
+.touch-only { display: none; }
+.result { display: flex; gap: 14px; align-items: baseline; font-size: 18px; } .result b { font-size: 26px; color: var(--amber); font-variant-numeric: tabular-nums; }
+.laps { list-style: none; font-variant-numeric: tabular-nums; opacity: .9; line-height: 1.8; }
+
+/* ---------- kontrol sentuh ---------- */
+.touch { display: none; }
+@media (pointer: coarse) {
+  .touch { display: block; position: fixed; inset: auto 0 0 0; height: 0; }
+  .touch-only { display: list-item; }
+  .cluster { position: fixed; bottom: 18px; display: flex; gap: 12px; align-items: flex-end; }
+  .cluster.left { left: 16px; } .cluster.right { right: 16px; }
+  .touch button { width: 76px; height: 76px; padding: 0; font-size: 20px; letter-spacing: .04em; background: #ffffff22; color: #fff; border: 2px solid #ffffff55; border-radius: 50%; box-shadow: none; touch-action: none; }
+  .touch button.gas { width: 96px; height: 96px; background: #3aa0ff55; }
+  .touch button.wide { width: 84px; height: 84px; font-size: 14px; }
+  .touch button:active { background: #ffb02088; }
+  .hud-bc { bottom: 120px; } #speed { font-size: 48px; }
+  #minimap { width: 110px; height: 110px; }
+}
+
+/* ---------- layar awal ---------- */
+.menu { background: radial-gradient(ellipse at center, rgba(5,7,11,.45) 0%, rgba(5,7,11,.88) 100%); }
+.menu .kicker { font-size: clamp(12px, 2.4vw, 18px); font-weight: 700; letter-spacing: .32em; text-transform: uppercase; color: #cfd8e3; }
+.menu h1 { font-size: clamp(48px, 12vw, 128px); line-height: .95; display: flex; flex-direction: column; align-items: center; text-shadow: 0 6px 40px #000c; }
+.menu h1 span { margin: 0; color: var(--amber); letter-spacing: .06em; text-shadow: 0 0 40px #ffb02055, 0 6px 40px #000c; }
+.menu .prodi { font-size: clamp(16px, 3.4vw, 28px); font-weight: 600; letter-spacing: .12em; color: #fff; }
+.menu .rule { width: min(360px, 60vw); height: 3px; background: linear-gradient(90deg, transparent, var(--amber), transparent); margin: 2px 0 4px; }
